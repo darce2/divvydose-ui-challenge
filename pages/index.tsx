@@ -61,7 +61,7 @@ const Home: NextPage = (props: any) => {
       </AppBar>
       <Grid
         container
-        maxWidth="xl"
+        maxWidth="lg"
         alignItems="center"
         direction="column"
         className={classes.toolbar}

@@ -18,7 +18,7 @@ const Request = (props: any) => {
   const { classes, pr }: { classes: any; pr: PullRequest } = props;
   const { title, labels, updated_at, html_url } = pr;
   return (
-    <Card sx={{ padding: "1rem" }} data-testid="pull-request-card">
+    <Card variant="outlined" sx={{ padding: "1rem" }} data-testid="pull-request-card">
       <Grid
         container
         spacing={2}
@@ -58,6 +58,7 @@ const Request = (props: any) => {
               className={classes.spacing}
               alignItems="center"
               justifyContent="flex-start"
+              zeroMinWidth
             >
               <CodeIcon sx={{ backgroundColor: `#${color}`, color: "white" }} />
               <Typography>{name}</Typography>
