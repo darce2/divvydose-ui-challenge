@@ -11,7 +11,6 @@ import { withStyles } from "@mui/styles";
 const styles = () => ({
   spacing: {
     margin: "auto",
-    padding: "1rem",
   },
 });
 
@@ -61,7 +60,7 @@ const Request = (props: any) => {
               justifyContent="flex-start"
             >
               <CodeIcon sx={{ backgroundColor: `#${color}`, color: "white" }} />
-              <Typography sx={{"padding-left": "8px"}}>{name}</Typography>
+              <Typography>{name}</Typography>
             </Grid>
           ))}
           <Grid item xs />
