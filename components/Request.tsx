@@ -9,8 +9,9 @@ import { PullRequest } from "../types";
 import { withStyles } from "@mui/styles";
 
 const styles = () => ({
-  marginAuto: {
+  spacing: {
     margin: "auto",
+    padding: "1rem",
   },
 });
 
@@ -18,20 +19,19 @@ const Request = (props: any) => {
   const { classes, pr }: { classes: any; pr: PullRequest } = props;
   const { title, labels, updated_at, html_url } = pr;
   return (
-    <Card data-testid="pull-request-card">
+    <Card sx={{ padding: "1rem" }} data-testid="pull-request-card">
       <Grid
         container
         spacing={2}
         direction="column"
-        className={classes.marginAuto}
+        className={classes.spacing}
       >
         <Grid
           container
           item
           spacing={3}
-          xs={6}
           direction="row"
-          className={classes.marginAuto}
+          className={classes.spacing}
         >
           <Grid item xs={5}>
             <Typography variant="h6">{title}</Typography>
@@ -48,13 +48,20 @@ const Request = (props: any) => {
           item
           alignItems="center"
           spacing={2}
-          xs={6}
-          className={classes.marginAuto}
+          className={classes.spacing}
         >
           {labels.map(({ id, name, color }) => (
-            <Grid xs={2} container item key={id} justifyContent="flex-start">
+            <Grid
+              xs={2}
+              container
+              item
+              key={id}
+              className={classes.spacing}
+              alignItems="center"
+              justifyContent="flex-start"
+            >
               <CodeIcon sx={{ backgroundColor: `#${color}`, color: "white" }} />
-              <Typography>{name}</Typography>
+              <Typography sx={{"padding-left": "8px"}}>{name}</Typography>
             </Grid>
           ))}
           <Grid item xs />

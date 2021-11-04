@@ -14,13 +14,17 @@ const styles = (theme: any) => ({
     ...theme.mixins.toolbar,
     margin: "auto",
   },
-  marginAuto: {
-    margin: "auto",
+  spacing: {
+    "margin-top": "auto",
   },
 });
 
 const Home: NextPage = (props: any) => {
-  const { classes, labels = [], prs = [] }: {classes: any, labels: Label[], prs: PullRequest[]} = props;
+  const {
+    classes,
+    labels = [],
+    prs = [],
+  }: { classes: any; labels: Label[]; prs: PullRequest[] } = props;
   const [selectedLabels, setSelectedLabels] = React.useState<string[]>([]);
 
   const handleSelections = (event: any) => {
@@ -37,7 +41,9 @@ const Home: NextPage = (props: any) => {
   const selectedPRs = prs.filter((pr: PullRequest) => {
     if (selectedLabels.length < 1) return true;
     else {
-      return pr.labels.some((label: Label) => selectedLabels.includes(label.name));
+      return pr.labels.some((label: Label) =>
+        selectedLabels.includes(label.name)
+      );
     }
   });
 
@@ -53,25 +59,33 @@ const Home: NextPage = (props: any) => {
           Open Pull Requests
         </Typography>
       </AppBar>
-      <Container maxWidth="xl" className={classes.toolbar}>
-        <Selector
-          selectedLabels={selectedLabels}
-          handleSelections={handleSelections}
-          labels={labels}
-        />
-      </Container>
-      <Container maxWidth="xl" className={classes.toolbar}>
-        <Grid
-          container
-          direction="column"
-          spacing={12}
-          className={classes.marginAuto}
-        >
-          {selectedPRs.map((pr) => (
-            <Request key={pr.id} pr={pr}/>
-          ))}
+      <Grid
+        container
+        maxWidth="xl"
+        alignItems="center"
+        direction="column"
+        className={classes.toolbar}
+      >
+        <Grid container item justifyContent="flex-start">
+          <Selector
+            selectedLabels={selectedLabels}
+            handleSelections={handleSelections}
+            labels={labels}
+          />
         </Grid>
-      </Container>
+        <Grid container item>
+          <Grid
+            container
+            item
+            direction="column"
+            className={classes.spacing}
+          >
+            {selectedPRs.map((pr) => (
+              <Request key={pr.id} pr={pr} />
+            ))}
+          </Grid>
+        </Grid>
+      </Grid>
     </React.Fragment>
   );
 };
@@ -85,13 +99,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
     "https://api.github.com/repos/divvydose/ui-coding-challenge/labels"
   );
 
-
   const [pullRes, labelRes] = await Promise.all([pullReq, labelReq]);
   const [prs, labels] = await Promise.all([pullRes.json(), labelRes.json()]);
 
   // Pass data to the page via props
   return { props: { prs, labels } };
-}
+};
 
 export default withStyles(styles)(Home);
-
